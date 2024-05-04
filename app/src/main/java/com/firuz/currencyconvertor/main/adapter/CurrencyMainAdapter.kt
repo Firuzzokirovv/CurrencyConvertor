@@ -34,7 +34,7 @@ class CurrencyMainAdapter(private val itemData: List<Currency>) :
 
         binding.courseName.text = item.name
         binding.courseNameRu.text = item.fullName
-        binding.courseSumma.text = String.format("%.6f", item.value)
+        binding.courseSumma.text = String.format("%.6f",item.value)
 
     }
 }
