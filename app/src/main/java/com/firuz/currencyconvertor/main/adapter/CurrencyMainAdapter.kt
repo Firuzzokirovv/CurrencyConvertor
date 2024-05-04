@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firuz.currencyconvertor.databinding.CardItemCourseNbtBinding
-import com.firuz.currencyconvertor.main.model.CourseNBT
+import com.firuz.currencyconvertor.main.model.Currency
 
-class CurrencyMainAdapter(private val itemData: List<CourseNBT>) :
+class CurrencyMainAdapter(private val itemData: List<Currency>) :
     RecyclerView.Adapter<CurrencyMainAdapter.CourseNBTViewHolder>() {
 
     class CourseNBTViewHolder(val binding: CardItemCourseNbtBinding) :
@@ -29,11 +29,12 @@ class CurrencyMainAdapter(private val itemData: List<CourseNBT>) :
         Glide.with(holder.binding.root)
             .load(item.flag)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .circleCrop()
             .into(binding.flagImage)
 
         binding.courseName.text = item.name
         binding.courseNameRu.text = item.fullName
-        binding.courseSumma.text = String.format("%.6f", item.value.toDouble())
+        binding.courseSumma.text = String.format("%.6f", item.value)
 
     }
 }

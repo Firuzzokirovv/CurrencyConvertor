@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firuz.currencyconvertor.databinding.LayoutActivityMainBinding
 import com.firuz.currencyconvertor.main.adapter.CurrencyMainAdapter
-import com.firuz.currencyconvertor.main.model.Results
+import com.firuz.currencyconvertor.main.model.Currency
 import com.firuz.currencyconvertor.main.retrofit.CurrencyMainRetrofitApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,22 +21,22 @@ class MainActivity : AppCompatActivity() {
         binding = LayoutActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.root.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        CurrencyMainRetrofitApi.getCourseNBT().enqueue(object : Callback<Results> {
-            override fun onResponse(p0: Call<Results>, p1: Response<Results>) {
+        CurrencyMainRetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
+            override fun onResponse(p0: Call<List<Currency>>, p1: Response<List<Currency>>) {
 
                 if (p1.isSuccessful) {
-                    val resultList = p1.body()?.results ?: emptyList()
-                    binding.root.adapter = CurrencyMainAdapter(resultList)
+                    val resultList = p1.body() ?: emptyList()
+                    binding.recyclerView.adapter = CurrencyMainAdapter(resultList)
 
                 } else {
                     Log.d("TAG_TEST", "!isSuccessful: что то пошло не так")
                 }
             }
 
-            override fun onFailure(p0: Call<Results>, p1: Throwable) {
+            override fun onFailure(p0: Call<List<Currency>>, p1: Throwable) {
                 Log.d("TAG_TEST", "onFailure: вообще что то пошло не так ${p1.message}")
             }
         })

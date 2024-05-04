@@ -6,16 +6,10 @@ import retrofit2.http.GET
 
 interface CoursesNBTApiService {
     @GET("currency-app/v1/nbt_rates")
-    fun getCourseNBT(): Call<Results>
+    fun getCourseNBT(): Call<List<Currency>>
 
 }
-
-data class Results(
-    @SerializedName("results")
-    val results: List<CourseNBT>
-)
-
-data class CourseNBT(
+data class Currency(
     @SerializedName("name")
     val name: String,
     @SerializedName("nominal")
