@@ -1,15 +1,10 @@
-package com.firuz.currencyconvertor.main.model
+package com.firuz.currencyconvertor.data.model
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.Call
-import retrofit2.http.GET
 
-interface CoursesNBTApiService {
-    @GET("currency-app/v1/nbt_rates")
-    fun getCourseNBT(): Call<List<Currency>>
-
-}
 data class Currency(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("nominal")

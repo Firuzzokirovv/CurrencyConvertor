@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="#171717"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -44,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="#606060"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/ll"
@@ -67,7 +71,7 @@
             android:textAlignment="textEnd"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="430 943 TJS" />
+            tools:text="943 TJS" />
 
     </LinearLayout>
 
