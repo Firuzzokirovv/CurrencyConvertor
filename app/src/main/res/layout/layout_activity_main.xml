@@ -11,7 +11,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/header_title"
+        android:id="@+id/block_header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,10 +20,11 @@
         tools:ignore="MissingConstraints">
 
         <TextView
+            android:id="@+id/header_title_text_View"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Курсы НБТ"
+            tools:text="Курсы НБТ"
             android:textColor="#212121"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -32,25 +33,26 @@
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@id/button_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_title">
+            app:layout_constraintTop_toBottomOf="@id/block_header_title">
         </FrameLayout>
 
 
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/button_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/botton_menu"
-        tools:ignore="ExtraText">
+        app:menu="@menu/button_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
