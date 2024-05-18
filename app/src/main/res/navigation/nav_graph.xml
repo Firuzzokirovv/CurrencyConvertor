@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_nbt">
+
+    <fragment
+        android:id="@+id/nav_nbt"
+        android:name="com.firuz.currencyconvertor.ui.nbtRates.NBTFragment"
+        tools:layout="@layout/nbt_fragment"
+        android:label="@string/title_nbt" >
+        <action
+            android:id="@+id/action_nav_nbt_to_nav_converter"
+            app:destination="@id/nav_converter" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_exchanger"
+        android:name="com.firuz.currencyconvertor.ui.exchanger.ExchangerFragment"
+        tools:layout="@layout/exchanger_fragment"
+        android:label="@string/title_exchangers" >
+        <action
+            android:id="@+id/action_nav_exchanger_to_nav_converter"
+            app:destination="@id/nav_converter" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_converter"
+        android:name="com.firuz.currencyconvertor.ui.converter.ConverterFragment"
+        tools:layout="@layout/fragment_currency_converter"
+        android:label="{title}" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

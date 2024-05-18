@@ -2,12 +2,15 @@ package com.firuz.currencyconvertor.ui.nbtRates.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.OnReceiveContentListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
 import com.firuz.currencyconvertor.data.model.Currency
 
-class NbtAdapter(private val itemData: List<Currency>) :
+class NbtAdapter(
+    private val itemData: List<Currency>,
+    private var listener: (item: Currency) -> Unit ) :
     RecyclerView.Adapter<CourseNBTViewHolder>() {
 
 
@@ -22,7 +25,7 @@ class NbtAdapter(private val itemData: List<Currency>) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CourseNBTViewHolder, position: Int) {
-        holder.bind(itemData[position])
+        holder.bind(itemData[position], listener)
 
 
 

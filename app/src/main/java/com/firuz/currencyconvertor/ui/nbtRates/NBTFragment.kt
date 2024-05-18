@@ -1,13 +1,12 @@
 package com.firuz.currencyconvertor.ui.nbtRates
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.firuz.currencyconvertor.data.model.Currency
 import com.firuz.currencyconvertor.data.retrofit.NbtRetrofitApi
 import com.firuz.currencyconvertor.databinding.NbtFragmentBinding
@@ -48,25 +47,35 @@ class NBTFragment : Fragment() {
 
         NbtRetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
             override fun onResponse(p0: Call<List<Currency>>, p1: Response<List<Currency>>) {
-                binding.progressBar.isVisible = false
+                if (this@NBTFragment.isAdded) {
+                    binding.progressBar.isVisible = false
 
-                if (p1.isSuccessful) {
-                    binding.recyclerView.adapter =
-                        NbtAdapter(itemData = p1.body() ?: emptyList())
-                    binding.contentPanel.isVisible = true
+                    if (p1.isSuccessful) {
+                        binding.recyclerView.adapter =
+                            NbtAdapter(itemData = p1.body() ?: emptyList()) {
+                                val action =
+                                    NBTFragmentDirections.actionNavNbtToNavConverter(
+                                        title = it.name
+                                    )
+                                findNavController().navigate(action)
+                            }
 
-                }
-                else {
-                    binding.errorPanel.isVisible = true
-                    binding.textViewErrorMessage.text = "Что-то пошло не так"
+                        binding.contentPanel.isVisible = true
+
+                    } else {
+                        binding.errorPanel.isVisible = true
+                        binding.textViewErrorMessage.text = "Что-то пошло не так"
+                    }
                 }
             }
 
-            override fun onFailure(p0: Call<List<Currency>>, p1: Throwable) {
-                binding.progressBar.isVisible = false
-                binding.contentPanel.isVisible = false
-                binding.errorPanel.isVisible = true
-                binding.textViewErrorMessage.text = p1.message
+                override fun onFailure(p0: Call<List<Currency>>, p1: Throwable) {
+                    if (this@NBTFragment.isAdded){
+                        binding.progressBar.isVisible = false
+                        binding.contentPanel.isVisible = false
+                        binding.errorPanel.isVisible = true
+                        binding.textViewErrorMessage.text = p1.message
+                }
             }
         })
     }

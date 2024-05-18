@@ -3,13 +3,13 @@
 
 
     <item
-        android:title="Обменники"
+        android:title="@string/exchanger"
         android:icon="@drawable/converter"
-        android:id="@+id/btn_menu_exchanger" />
+        android:id="@+id/nav_exchanger" />
 
     <item
-        android:title="НБТ"
+        android:title="@string/nbt"
         android:icon="@drawable/nbt"
-        android:id="@+id/btn_menu_nbt" />
+        android:id="@+id/nav_nbt" />
 
 </menu>

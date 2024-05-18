@@ -1,19 +1,19 @@
 package com.firuz.currencyconvertor.ui
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.firuz.currencyconvertor.R
 import com.firuz.currencyconvertor.databinding.LayoutActivityMainBinding
-import com.firuz.currencyconvertor.ui.converter.ConverterFragment
-import com.firuz.currencyconvertor.ui.exchanger.ExchangerFragment
-import com.firuz.currencyconvertor.ui.nbtRates.NBTFragment
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: LayoutActivityMainBinding
-    private lateinit var nbtFragment: NBTFragment
-    private lateinit var converterFragment: ConverterFragment
-    private lateinit var exchangerFragment: ExchangerFragment
+    private lateinit var navController: NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,48 +22,28 @@ class MainActivity : AppCompatActivity() {
         binding = LayoutActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        nbtFragment = NBTFragment()
-        converterFragment = ConverterFragment()
-        exchangerFragment = ExchangerFragment()
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, nbtFragment)
-            .commit()
+        navController =
+            (supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment).navController
 
-        binding.headerTitleTextView.text = "Курсы НБТ"
+        val topIdSet = setOf(
+                R.id.nav_exchanger,
+                R.id.nav_nbt
+            )
 
 
-        binding.buttonNavigation.setOnClickListener() {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, nbtFragment)
-                .commit()
+        NavigationUI.setupWithNavController(
+            binding.toolbar, navController, AppBarConfiguration(
+                topIdSet
+            )
+        )
 
-            binding.headerTitleTextView.text = "Курсы НБТ"
 
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            binding.bottomNavigation.isVisible = topIdSet.contains(destination.id)
         }
-
-        binding.buttonNavigation.setOnClickListener() {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, exchangerFragment)
-                .commit()
-
-            binding.headerTitleTextView.text = "Обменники"
-
-        }
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
