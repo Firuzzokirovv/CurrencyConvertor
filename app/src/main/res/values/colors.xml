@@ -7,6 +7,8 @@
 
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#606060</color>
+    
+    <color name="text_exchanger_secondary">#4F5152</color>
 
     <color name="error">#B71C1C</color>
 </resources>

@@ -1,14 +1,13 @@
-package com.firuz.currencyconvertor.ui.nbtRates.adapter
+package com.firuz.currencyconvertor.ui.exchanger.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
 import com.firuz.currencyconvertor.data.model.Currency
+import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
+import com.firuz.currencyconvertor.ui.nbtRates.adapter.CourseNBTViewHolder
 
-class NbtAdapter(
+class ExchangerAdapter(
     private val itemData: List<Currency>,
     private var listener: (item: Currency) -> Unit ) :
     RecyclerView.Adapter<CourseNBTViewHolder>() {
