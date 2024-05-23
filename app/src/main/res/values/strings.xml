@@ -12,4 +12,7 @@
     <string name="title_nbt">Курсы НБТ</string>
     <string name="title_exchangers">Обменники</string>
     <string name="_0">0</string>
+    <string name="sell">Продажа</string>
+    <string name="buy">Покупка</string>
+    <string name="rate">Валюта</string>
 </resources>

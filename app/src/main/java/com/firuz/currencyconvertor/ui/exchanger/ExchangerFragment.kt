@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.firuz.currencyconvertor.data.model.Currency
-import com.firuz.currencyconvertor.data.retrofit.NbtRetrofitApi
+import com.firuz.currencyconvertor.data.model.Exchanger
+import com.firuz.currencyconvertor.data.retrofit.RetrofitApi
 import com.firuz.currencyconvertor.databinding.ExchangerFragmentBinding
-import com.firuz.currencyconvertor.ui.nbtRates.NBTFragmentDirections
-import com.firuz.currencyconvertor.ui.nbtRates.adapter.NbtAdapter
+import com.firuz.currencyconvertor.ui.exchanger.adapter.ExchangerAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,22 +43,15 @@ class ExchangerFragment : Fragment() {
         binding.errorPanel.isVisible = false
         binding.errorPanel.isVisible = false
 
-        NbtRetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
-            override fun onResponse(p0: Call<List<Currency>>, p1: Response<List<Currency>>) {
+        RetrofitApi.getExchanger().enqueue(object : Callback<List<Exchanger>> {
+            override fun onResponse(p0: Call<List<Exchanger>>, p1: Response<List<Exchanger>>) {
                 if (this@ExchangerFragment.isAdded) {
                     binding.progressBar.isVisible = false
 
                     if (p1.isSuccessful) {
-                        binding.recyclerView.adapter =
-                            NbtAdapter(itemData = p1.body() ?: emptyList()) {
-                                val action =
-                                    NBTFragmentDirections.actionNavNbtToNavConverter(
-                                        title = it.name
-                                    )
-                                findNavController().navigate(action)
-                            }
-
-                        binding.errorPanel.isVisible = true
+                        binding.recyclerViewExchanger.adapter =
+                            ExchangerAdapter(itemData = p1.body() ?: emptyList())
+                        binding.recyclerViewExchanger.isVisible = true
 
                     } else {
                         binding.errorPanel.isVisible = true
@@ -68,10 +60,10 @@ class ExchangerFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(p0: Call<List<Currency>>, p1: Throwable) {
+            override fun onFailure(p0: Call<List<Exchanger>>, p1: Throwable) {
                 if (this@ExchangerFragment.isAdded){
                     binding.progressBar.isVisible = false
-                    binding.errorPanel.isVisible = false
+                    binding.recyclerViewExchanger.isVisible = false
                     binding.errorPanel.isVisible = true
                     binding.textViewErrorMessage.text = p1.message
                 }

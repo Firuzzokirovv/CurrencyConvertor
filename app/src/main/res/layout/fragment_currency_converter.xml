@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <include
-
             android:id="@+id/rate_panel"
             layout="@layout/card_nbt_rate_converter" />
     </androidx.cardview.widget.CardView>

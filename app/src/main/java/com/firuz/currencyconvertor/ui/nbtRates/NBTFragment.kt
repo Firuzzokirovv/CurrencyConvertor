@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.firuz.currencyconvertor.data.model.Currency
-import com.firuz.currencyconvertor.data.retrofit.NbtRetrofitApi
+import com.firuz.currencyconvertor.data.retrofit.RetrofitApi
 import com.firuz.currencyconvertor.databinding.NbtFragmentBinding
 import com.firuz.currencyconvertor.ui.nbtRates.adapter.NbtAdapter
 import retrofit2.Call
@@ -45,7 +45,7 @@ class NBTFragment : Fragment() {
         binding.contentPanel.isVisible = false
         binding.errorPanel.isVisible = false
 
-        NbtRetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
+        RetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
             override fun onResponse(p0: Call<List<Currency>>, p1: Response<List<Currency>>) {
                 if (this@NBTFragment.isAdded) {
                     binding.progressBar.isVisible = false
@@ -59,6 +59,7 @@ class NBTFragment : Fragment() {
                                     )
                                 findNavController().navigate(action)
                             }
+
 
                         binding.contentPanel.isVisible = true
 

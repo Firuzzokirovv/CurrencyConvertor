@@ -1,12 +1,15 @@
 package com.firuz.currencyconvertor.data.api
 
 import com.firuz.currencyconvertor.data.model.Currency
-import com.google.gson.annotations.SerializedName
+import com.firuz.currencyconvertor.data.model.Exchanger
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface CoursesNBTApiService {
-    @GET("currency-app/v1/nbt_rates")
+interface CurrencyRateApiService {
+    @GET("data.json")
     fun getCourseNBT(): Call<List<Currency>>
+
+    @GET("npcr_bank_rates_data.json")
+    fun getExchanger(): Call<List<Exchanger>>
 
 }

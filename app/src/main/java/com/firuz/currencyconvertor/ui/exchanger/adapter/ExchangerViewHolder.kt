@@ -4,31 +4,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firuz.currencyconvertor.R
-import com.firuz.currencyconvertor.data.model.Currency
+import com.firuz.currencyconvertor.data.model.Exchanger
 import com.firuz.currencyconvertor.databinding.CardExchangerBinding
 
 class ExchangerViewHolder(private val binding: CardExchangerBinding) :
     RecyclerView.ViewHolder(binding.root){
 
-    fun bind(item: Currency, listener: (Currency) -> Unit){
-
-        with(binding){
-            root.setOnClickListener{
-                listener(item)
-            }
-        }
+    fun bind(item: Exchanger){
 
         Glide.with(binding.root)
-            .load(item.flag)
+            .load(item.icon)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .circleCrop()
             .placeholder(R.drawable.flag_empty)
             .error(R.drawable.flag_error)
             .into(binding.titleImageView)
 
-        binding.titleBank.text = item.name
-        /*binding.courseNameRu.text = item.fullName
-        binding.courseSumma.text = String.format("%.6f",item.value / item.nominal) + "c."*/
+        binding.titleBank.text = item.bankName
     }
 
 }
