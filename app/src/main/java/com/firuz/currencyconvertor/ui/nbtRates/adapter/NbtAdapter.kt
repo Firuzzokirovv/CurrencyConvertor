@@ -13,8 +13,6 @@ class NbtAdapter(
     private var listener: (item: Currency) -> Unit ) :
     RecyclerView.Adapter<CourseNBTViewHolder>() {
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseNBTViewHolder {
         val binding =
             CardNbtRateConverterBinding.inflate(LayoutInflater.from(parent.context),parent, false)

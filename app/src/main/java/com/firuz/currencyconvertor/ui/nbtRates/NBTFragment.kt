@@ -6,19 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.firuz.currencyconvertor.data.model.Currency
-import com.firuz.currencyconvertor.data.retrofit.RetrofitApi
 import com.firuz.currencyconvertor.databinding.NbtFragmentBinding
 import com.firuz.currencyconvertor.ui.nbtRates.adapter.NbtAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class NBTFragment : Fragment() {
 
     private var _binding: NbtFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: NBTRateViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,53 +30,41 @@ class NBTFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadNbtRates()
-    }
 
+        viewModel.uiState.observe(viewLifecycleOwner){
+            setLoading(it.isLoading)
+            setError(it.errorMessage)
+            setupRecyclerView(it.dataSet)
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun loadNbtRates() {
-
-        binding.progressBar.isVisible = true
-        binding.contentPanel.isVisible = false
-        binding.errorPanel.isVisible = false
-
-        RetrofitApi.getCourseNBT().enqueue(object : Callback<List<Currency>> {
-            override fun onResponse(p0: Call<List<Currency>>, p1: Response<List<Currency>>) {
-                if (this@NBTFragment.isAdded) {
-                    binding.progressBar.isVisible = false
-
-                    if (p1.isSuccessful) {
-                        binding.recyclerView.adapter =
-                            NbtAdapter(itemData = p1.body() ?: emptyList()) {
-                                val action =
-                                    NBTFragmentDirections.actionNavNbtToNavConverter(
-                                        title = it.name
-                                    )
-                                findNavController().navigate(action)
-                            }
-
-
-                        binding.contentPanel.isVisible = true
-
-                    } else {
-                        binding.errorPanel.isVisible = true
-                        binding.textViewErrorMessage.text = "Что-то пошло не так"
-                    }
-                }
-            }
-
-                override fun onFailure(p0: Call<List<Currency>>, p1: Throwable) {
-                    if (this@NBTFragment.isAdded){
-                        binding.progressBar.isVisible = false
-                        binding.contentPanel.isVisible = false
-                        binding.errorPanel.isVisible = true
-                        binding.textViewErrorMessage.text = p1.message
-                }
-            }
-        })
+    private fun setLoading(isLoading: Boolean){
+        binding.progressBar.isVisible = isLoading
     }
+
+    private fun setError(message: String?){
+        binding.errorPanel.isVisible = !message.isNullOrEmpty()
+        binding.textViewErrorMessage.text = message
+        binding.reloadButton.setOnClickListener {
+            viewModel.reload()
+        }
+    }
+
+    private fun setupRecyclerView(dataset: List<Currency>){
+        binding.recyclerView.isVisible = dataset.isNotEmpty()
+        binding.recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+        binding.recyclerView.adapter = NbtAdapter(dataset){
+            val action =
+                NBTFragmentDirections.actionNavNbtToNavConverter(
+                    title = it.name
+                )
+            findNavController().navigate(action)
+        }
+
+    }
+
 }

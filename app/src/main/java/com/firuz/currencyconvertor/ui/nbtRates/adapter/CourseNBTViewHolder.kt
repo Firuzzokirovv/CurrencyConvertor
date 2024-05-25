@@ -8,6 +8,7 @@ import com.firuz.currencyconvertor.R
 import com.firuz.currencyconvertor.data.model.Currency
 import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
 import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache
+import com.firuz.currencyconvertor.ui.toFormattedMoney
 
 class CourseNBTViewHolder(private val binding: CardNbtRateConverterBinding) :
     RecyclerView.ViewHolder(binding.root){
@@ -19,11 +20,10 @@ class CourseNBTViewHolder(private val binding: CardNbtRateConverterBinding) :
                 listener(item)
             }
         }
-
          binding.flagImage.loadRoundedImageWithCache(item.flag)
 
             binding.courseName.text = item.name
             binding.courseNameRu.text = item.fullName
-            binding.courseSumma.text = String.format("%.6f",item.value / item.nominal) + "c."
+            binding.courseSumma.text = (item.value / item.nominal).toFormattedMoney()
     }
 }
