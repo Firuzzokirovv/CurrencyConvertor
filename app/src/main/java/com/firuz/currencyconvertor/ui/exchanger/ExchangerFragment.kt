@@ -1,7 +1,6 @@
 package com.firuz.currencyconvertor.ui.exchanger
 
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firuz.currencyconvertor.R
 import com.firuz.currencyconvertor.data.model.Exchanger
-import com.firuz.currencyconvertor.data.retrofit.RetrofitApi
 import com.firuz.currencyconvertor.databinding.ExchangerFragmentBinding
 import com.firuz.currencyconvertor.ui.exchanger.adapter.ExchangerAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ExchangerFragment : Fragment() {
     private var _binding: ExchangerFragmentBinding? = null
@@ -35,17 +29,10 @@ class ExchangerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setLoading(viewModel.isLoading)
-        setError(viewModel.errorMessage)
-
-        if (viewModel.dataSet.isEmpty()){
-            viewModel.loadRates(
-                onError = ::setError,
-                onLoading = ::setLoading,
-                onSuccess = ::setupRecyclerView
-            )
-        } else {
-            setupRecyclerView(viewModel.dataSet)
+        viewModel.uiState.observe(viewLifecycleOwner){
+            setLoading(it.isLoading)
+            setError(it.errorMessage)
+            setupRecyclerView(it.dataSet)
         }
 
     }
@@ -62,10 +49,14 @@ class ExchangerFragment : Fragment() {
     private fun setError(message: String?){
         binding.errorPanel.isVisible = !message.isNullOrEmpty()
         binding.textViewErrorMessage.text = message
+
+        binding.reloadButton.setOnClickListener {
+            viewModel.reload()
+        }
     }
 
     private fun setupRecyclerView(dataSet: List<Exchanger>){
-        binding.recyclerViewExchanger.isVisible = true
+        binding.recyclerViewExchanger.isVisible = dataSet.isNotEmpty()
         binding.recyclerViewExchanger.layoutManager = LinearLayoutManager(binding.root.context)
         binding.recyclerViewExchanger.adapter = ExchangerAdapter(dataSet){
             val action =
