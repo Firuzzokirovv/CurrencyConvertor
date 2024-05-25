@@ -1,26 +1,36 @@
 package com.firuz.currencyconvertor.ui.exchanger.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.firuz.currencyconvertor.R
+import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.firuz.currencyconvertor.data.model.Exchanger
 import com.firuz.currencyconvertor.databinding.CardExchangerBinding
-
-class ExchangerViewHolder(private val binding: CardExchangerBinding) :
+import com.firuz.currencyconvertor.ui.exchanger.ExchangerFragmentDirections
+import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache
+class ExchangerViewHolder(
+    private val binding: CardExchangerBinding,
+    private val viewPool: RecycledViewPool) :
     RecyclerView.ViewHolder(binding.root){
 
-    fun bind(item: Exchanger){
+    fun bind(
+        item: Exchanger,
+        listener: (item: Exchanger) -> Unit){
 
-        Glide.with(binding.root)
-            .load(item.icon)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .circleCrop()
-            .placeholder(R.drawable.flag_empty)
-            .error(R.drawable.flag_error)
-            .into(binding.titleImageView)
+        with(binding){
 
-        binding.titleBank.text = item.bankName
+            root.setOnClickListener {
+                listener(item)
+            }
+
+            binding.titleImageView.loadRoundedImageWithCache(item.icon)
+            binding.titleBank.text = item.bankName
+
+            recyclerViewCurrency.setRecycledViewPool(viewPool)
+            recyclerViewCurrency.adapter = CurrencyAdapter(item.currency){
+
+            }
+        }
     }
-
+    companion object {
+        const val VIEW_TYPE = 1
+    }
 }

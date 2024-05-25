@@ -11,18 +11,18 @@ data class Exchanger(
     val icon: String,
     @SerializedName("currency")
     val currency: List<Currencies>
-)
+) {
+    data class Currencies(
+        @SerializedName("name")
+        val name: String,
+        @SerializedName("full_name")
+        val fullName: String,
+        @SerializedName("flag")
+        val flag: String,
+        @SerializedName("sell_value")
+        val sellValue: Double,
+        @SerializedName("buy_value")
+        val buyValue: Double
 
-data class Currencies(
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("full_name")
-    val fullName: String,
-    @SerializedName("flag")
-    val flag: String,
-    @SerializedName("sell_value")
-    val sellValue: String,
-    @SerializedName("buy_value")
-    val buyValue: String
-    
-)
+    )
+}

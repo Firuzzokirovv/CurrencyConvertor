@@ -13,11 +13,13 @@
             android:layout_weight="27">
 
             <ImageView
+                android:id="@+id/image_view_currency_icon"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 tools:src="@tools:sample/avatars" />
 
             <TextView
+                android:id="@+id/text_view_currency_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -26,12 +28,12 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="USD"
-                android:text="USD"/>
+                tools:text="USD" />
 
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_view_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -40,10 +42,10 @@
             android:textColor="@color/text_secondary"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="12,00"
-            android:text="12,00"/>
+            tools:text="12,00" />
 
         <TextView
+            android:id="@+id/text_view_sell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -52,7 +54,6 @@
             android:textColor="@color/text_exchanger_secondary"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="12,00"
-            android:text="12,00"/>
+            tools:text="12,00" />
 
 </LinearLayout>

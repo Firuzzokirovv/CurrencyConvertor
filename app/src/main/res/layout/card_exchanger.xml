@@ -80,9 +80,14 @@
 
             </LinearLayout>
 
-            <include layout="@layout/card_exchanger_inner_item" />
-            <include layout="@layout/card_exchanger_inner_item" />
-            <include layout="@layout/card_exchanger_inner_item" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/card_currency" />
 
 
 

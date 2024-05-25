@@ -7,6 +7,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firuz.currencyconvertor.R
 import com.firuz.currencyconvertor.data.model.Currency
 import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
+import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache
 
 class CourseNBTViewHolder(private val binding: CardNbtRateConverterBinding) :
     RecyclerView.ViewHolder(binding.root){
@@ -19,13 +20,7 @@ class CourseNBTViewHolder(private val binding: CardNbtRateConverterBinding) :
             }
         }
 
-         Glide.with(binding.root)
-                .load(item.flag)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .circleCrop()
-                .placeholder(R.drawable.flag_empty)
-                .error(R.drawable.flag_error)
-                .into(binding.flagImage)
+         binding.flagImage.loadRoundedImageWithCache(item.flag)
 
             binding.courseName.text = item.name
             binding.courseNameRu.text = item.fullName
