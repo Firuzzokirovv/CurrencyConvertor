@@ -3,6 +3,7 @@ package com.firuz.currencyconvertor.ui
 import android.app.Application
 import androidx.room.Room
 import com.firuz.currencyconvertor.data.local.AppDatabase
+import com.firuz.currencyconvertor.data.local.dao.ExchangerDao
 import com.firuz.currencyconvertor.data.local.dao.NbtDao
 import com.firuz.currencyconvertor.data.remote.api.CurrencyRateApiService
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ class App : Application() {
             .build()
 
         nbtDao = db.nbtDao()
+        exchangerDao = db.exchangerDao()
 
     }
 
@@ -35,5 +37,6 @@ class App : Application() {
         lateinit var instance: App
         lateinit var currencyRateApiService: CurrencyRateApiService
         lateinit var nbtDao: NbtDao
+        lateinit var exchangerDao: ExchangerDao
     }
 }
