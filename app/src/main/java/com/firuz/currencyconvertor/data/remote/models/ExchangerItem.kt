@@ -1,4 +1,4 @@
-package com.firuz.currencyconvertor.data.model
+package com.firuz.currencyconvertor.data.remote.models
 import com.google.gson.annotations.SerializedName
 
 

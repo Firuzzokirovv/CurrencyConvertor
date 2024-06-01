@@ -1,19 +1,16 @@
 package com.firuz.currencyconvertor.ui.nbtRates.adapter
 
-import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.firuz.currencyconvertor.R
-import com.firuz.currencyconvertor.data.model.Currency
+import com.firuz.currencyconvertor.data.remote.models.Currency
 import com.firuz.currencyconvertor.databinding.CardNbtRateConverterBinding
+import com.firuz.currencyconvertor.domain.models.NbtRate
 import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache
 import com.firuz.currencyconvertor.ui.toFormattedMoney
 
 class CourseNBTViewHolder(private val binding: CardNbtRateConverterBinding) :
     RecyclerView.ViewHolder(binding.root){
 
-    fun bind(item: Currency, listener: (Currency) -> Unit){
+    fun bind(item: NbtRate, listener: (NbtRate) -> Unit){
 
         with(binding){
             root.setOnClickListener{

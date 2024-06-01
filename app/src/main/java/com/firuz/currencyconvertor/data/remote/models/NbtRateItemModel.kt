@@ -1,4 +1,4 @@
-package com.firuz.currencyconvertor.data.model
+package com.firuz.currencyconvertor.data.remote.models
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ data class Currency(
     @SerializedName("name")
     val name: String,
     @SerializedName("nominal")
-    val nominal: Int,
+    val nominal: Double,
     @SerializedName("full_name")
     val fullName: String,
     @SerializedName("flag")

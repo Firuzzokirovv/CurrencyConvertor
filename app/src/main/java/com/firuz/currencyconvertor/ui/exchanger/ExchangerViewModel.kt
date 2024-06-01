@@ -1,13 +1,10 @@
 package com.firuz.currencyconvertor.ui.exchanger
 
-import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
-import com.firuz.currencyconvertor.data.model.Exchanger
-import com.firuz.currencyconvertor.data.retrofit.RetrofitApi
-import com.firuz.currencyconvertor.ui.exchanger.adapter.ExchangerAdapter
+import com.firuz.currencyconvertor.data.remote.models.Exchanger
+import com.firuz.currencyconvertor.data.remote.RetrofitApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,7 +66,7 @@ class ExchangerViewModel : ViewModel() {
 }
 
 data class ExchangerUIState(
-    var isLoading: Boolean = false,
-    var errorMessage: String? = null,
-    var dataSet: List<Exchanger> = emptyList()
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null,
+    val dataSet: List<Exchanger> = emptyList()
 )

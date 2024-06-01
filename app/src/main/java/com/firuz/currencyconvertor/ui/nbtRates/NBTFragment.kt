@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firuz.currencyconvertor.data.model.Currency
 import com.firuz.currencyconvertor.databinding.NbtFragmentBinding
+import com.firuz.currencyconvertor.domain.models.NbtRate
 import com.firuz.currencyconvertor.ui.nbtRates.adapter.NbtAdapter
 
 class NBTFragment : Fragment() {
 
     private var _binding: NbtFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: NBTRateViewModel by viewModels()
+
+    private val viewModel: NBTRateViewModel by viewModels(factoryProducer = { NbtViewModelProviderFactory() })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +38,6 @@ class NBTFragment : Fragment() {
             setupRecyclerView(it.dataSet)
         }
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     private fun setLoading(isLoading: Boolean){
         binding.progressBar.isVisible = isLoading
@@ -49,13 +46,14 @@ class NBTFragment : Fragment() {
     private fun setError(message: String?){
         binding.errorPanel.isVisible = !message.isNullOrEmpty()
         binding.textViewErrorMessage.text = message
+
         binding.reloadButton.setOnClickListener {
             viewModel.reload()
         }
     }
 
-    private fun setupRecyclerView(dataset: List<Currency>){
-        binding.recyclerView.isVisible = dataset.isNotEmpty()
+    private fun setupRecyclerView(dataset: List<NbtRate>){
+        binding.contentPanel.isVisible = dataset.isNotEmpty()
         binding.recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
         binding.recyclerView.adapter = NbtAdapter(dataset){
             val action =
@@ -64,7 +62,10 @@ class NBTFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

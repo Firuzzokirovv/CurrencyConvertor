@@ -2,9 +2,8 @@ package com.firuz.currencyconvertor.ui.exchanger.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
-import com.firuz.currencyconvertor.data.model.Exchanger
+import com.firuz.currencyconvertor.data.remote.models.Exchanger
 import com.firuz.currencyconvertor.databinding.CardExchangerBinding
-import com.firuz.currencyconvertor.ui.exchanger.ExchangerFragmentDirections
 import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache
 class ExchangerViewHolder(
     private val binding: CardExchangerBinding,

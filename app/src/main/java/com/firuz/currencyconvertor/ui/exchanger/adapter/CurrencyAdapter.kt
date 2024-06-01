@@ -3,7 +3,7 @@ package com.firuz.currencyconvertor.ui.exchanger.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.firuz.currencyconvertor.data.model.Exchanger
+import com.firuz.currencyconvertor.data.remote.models.Exchanger
 import com.firuz.currencyconvertor.databinding.CardCurrencyBinding
 import com.firuz.currencyconvertor.ui.exchanger.adapter.CurrencyAdapter.CurrencyViewHolder.Companion.VIEW_TYPE
 import com.firuz.currencyconvertor.ui.loadRoundedImageWithCache

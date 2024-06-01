@@ -3,10 +3,8 @@ package com.firuz.currencyconvertor.ui.exchanger.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.firuz.currencyconvertor.data.model.Currency
-import com.firuz.currencyconvertor.data.model.Exchanger
+import com.firuz.currencyconvertor.data.remote.models.Exchanger
 import com.firuz.currencyconvertor.databinding.CardExchangerBinding
-import com.firuz.currencyconvertor.ui.nbtRates.adapter.CourseNBTViewHolder
 
 class ExchangerAdapter(
     private val itemData: List<Exchanger>,
